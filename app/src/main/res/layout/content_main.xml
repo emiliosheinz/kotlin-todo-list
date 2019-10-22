@@ -19,9 +19,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_todo_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Todo"

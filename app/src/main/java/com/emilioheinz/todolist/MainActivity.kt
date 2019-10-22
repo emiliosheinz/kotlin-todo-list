@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 
 import kotlinx.android.synthetic.main.activity_main.*
 import com.emilioheinz.todolist.R
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         add_todo_button.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Its toast!", Toast.LENGTH_SHORT).show();
+            var todoContent = findViewById<EditText>(R.id.add_todo_input)
+            Toast.makeText(this@MainActivity, todoContent.text.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
