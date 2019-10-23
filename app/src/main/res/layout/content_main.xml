@@ -47,7 +47,7 @@
     <ListView
         android:id="@+id/todo_list_view"
         android:layout_width="match_parent"
-        android:layout_height="400dp"/>
+        android:layout_height="fill_parent"/>
 
 
 </LinearLayout>
