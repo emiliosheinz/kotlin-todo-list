@@ -10,6 +10,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.emilioheinz.todolist.R
 import android.widget.Toast
 import kotlinx.android.synthetic.main.content_main.*
+import android.content.Context
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +24,20 @@ class MainActivity : AppCompatActivity() {
 
         add_todo_button.setOnClickListener {
             var todoContent = findViewById<EditText>(R.id.add_todo_input)
-            Toast.makeText(this@MainActivity, todoContent.text.toString(), Toast.LENGTH_SHORT).show();
+
+            val prefs = getSharedPreferences("com.emilioheinz.todolist", Context.MODE_PRIVATE)
+            val editor = prefs.edit()
+
+            val mySet = HashSet<String>()
+
+            mySet.add(todoContent.text.toString())
+
+            editor.putStringSet("USER_TODOS", mySet)
+            editor.commit()
+
+            val currentTodos = prefs.getStringSet("USER_TODOS", null)
+
+            Toast.makeText(this@MainActivity, currentTodos?.last().toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
