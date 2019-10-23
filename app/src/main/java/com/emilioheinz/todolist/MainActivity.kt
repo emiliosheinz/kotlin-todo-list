@@ -11,8 +11,8 @@ import com.emilioheinz.todolist.R
 import android.widget.Toast
 import kotlinx.android.synthetic.main.content_main.*
 import android.content.Context
-
-
+import android.widget.ArrayAdapter
+import android.widget.ListView
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             val prefs = getSharedPreferences("com.emilioheinz.todolist", Context.MODE_PRIVATE)
             val editor = prefs.edit()
 
-            val mySet = HashSet<String>()
+            val prevTodos = prefs.getStringSet("USER_TODOS", null)
+            val mySet = HashSet<String>(prevTodos)
 
             mySet.add(todoContent.text.toString())
 
@@ -37,7 +38,21 @@ class MainActivity : AppCompatActivity() {
 
             val currentTodos = prefs.getStringSet("USER_TODOS", null)
 
-            Toast.makeText(this@MainActivity, currentTodos?.last().toString(), Toast.LENGTH_SHORT).show()
+            var currentTodosArray = ArrayList<String>()
+
+            currentTodos?.forEach { currentTodosArray.add(it) }
+
+            val listView = findViewById<ListView>(R.id.todo_list_view)
+            val listItems = arrayOfNulls<String>(currentTodosArray.size)
+
+            for (i in 0 until currentTodosArray.size) {
+                val todo = currentTodosArray[i]
+                listItems[i] = todo
+            }
+
+
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
+            listView.adapter = adapter
         }
     }
 
